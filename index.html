@@ -118,27 +118,12 @@
                     </div>
                 </div>
 
-                <!-- Right: Interactive Avatar Uploader (Không cần backend) -->
+                <!-- Right: Avatar -->
                 <div class="flex flex-col items-center gap-3">
-                    <div class="relative group cursor-pointer w-32 h-32 rounded-full border-2 border-dashed border-zinc-700 hover:border-brand-500 transition-all duration-300 bg-zinc-900/50 flex flex-col items-center justify-center text-center p-2 overflow-hidden" id="avatar-container">
-                        <!-- Default placeholder -->
-                        <div id="avatar-placeholder" class="hidden flex-col items-center justify-center">
-                            <svg class="w-8 h-8 text-zinc-500 group-hover:text-brand-500 transition-colors mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                            </svg>
-                            <span class="text-[10px] text-zinc-500 font-medium group-hover:text-zinc-300">Tải ảnh lên</span>
-                        </div>
-                        <!-- Local Image render -->
-                        <img id="avatar-img" src="cv.jpg" class="block w-full h-full object-cover rounded-full" alt="Nguyen Huy Hoang">
-                        <!-- Input element hidden -->
-                        <input type="file" id="avatar-input" class="hidden" accept="image/*">
-                        
-                        <!-- Hover mask to change image -->
-                        <div id="avatar-hover-mask" class="absolute inset-0 bg-black/60 flex items-center justify-center text-[10px] text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                            Thay đổi ảnh
-                        </div>
+                    <div class="w-32 h-32 rounded-full border-2 border-zinc-700 bg-zinc-900/50 flex flex-col items-center justify-center p-1 overflow-hidden shadow-xl">
+                        <!-- Image render -->
+                        <img id="avatar-img" src="" class="w-full h-full object-cover rounded-full" alt="Nguyen Huy Hoang">
                     </div>
-                    <p class="text-[11px] text-zinc-500 italic text-justify">Nhấp vào khung để cập nhật ảnh CV</p>
                 </div>
 
             </div>
@@ -662,33 +647,6 @@
 
     <!-- Portfolio Logic (Pure Vanilla Javascript) -->
     <script>
-        // Interactive Avatar Upload Logic
-        const avatarContainer = document.getElementById('avatar-container');
-        const avatarPlaceholder = document.getElementById('avatar-placeholder');
-        const avatarImg = document.getElementById('avatar-img');
-        const avatarInput = document.getElementById('avatar-input');
-        const avatarHoverMask = document.getElementById('avatar-hover-mask');
-
-        avatarContainer.addEventListener('click', () => {
-            avatarInput.click();
-        });
-
-        avatarInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    avatarImg.src = e.target.result;
-                    avatarImg.classList.remove('hidden');
-                    avatarPlaceholder.classList.add('hidden');
-                    avatarHoverMask.classList.add('flex');
-                    avatarHoverMask.classList.remove('hidden');
-                    showToast("Cập nhật ảnh đại diện thành công!");
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-
         // Interactive Toast Message
         function showToast(message) {
             const toast = document.getElementById('toast');
@@ -786,6 +744,11 @@
                 btnRag.classList.add('text-zinc-400');
             }
         }
+    </script>
+    <script src="avatar.js"></script>
+    <script>
+        // Load Avatar from Base64
+        document.getElementById('avatar-img').src = avatarBase64;
     </script>
 </body>
 </html>
