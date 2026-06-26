@@ -122,19 +122,19 @@
                 <div class="flex flex-col items-center gap-3">
                     <div class="relative group cursor-pointer w-32 h-32 rounded-full border-2 border-dashed border-zinc-700 hover:border-brand-500 transition-all duration-300 bg-zinc-900/50 flex flex-col items-center justify-center text-center p-2 overflow-hidden" id="avatar-container">
                         <!-- Default placeholder -->
-                        <div id="avatar-placeholder" class="flex flex-col items-center justify-center">
+                        <div id="avatar-placeholder" class="hidden flex-col items-center justify-center">
                             <svg class="w-8 h-8 text-zinc-500 group-hover:text-brand-500 transition-colors mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                             </svg>
                             <span class="text-[10px] text-zinc-500 font-medium group-hover:text-zinc-300">Tải ảnh lên</span>
                         </div>
                         <!-- Local Image render -->
-                        <img id="avatar-img" class="hidden w-full h-full object-cover rounded-full" alt="Nguyen Huy Hoang">
+                        <img id="avatar-img" src="cv.jpg" class="block w-full h-full object-cover rounded-full" alt="Nguyen Huy Hoang">
                         <!-- Input element hidden -->
                         <input type="file" id="avatar-input" class="hidden" accept="image/*">
                         
                         <!-- Hover mask to change image -->
-                        <div id="avatar-hover-mask" class="absolute inset-0 bg-black/60 items-center justify-center text-[10px] text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 hidden">
+                        <div id="avatar-hover-mask" class="absolute inset-0 bg-black/60 flex items-center justify-center text-[10px] text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                             Thay đổi ảnh
                         </div>
                     </div>
