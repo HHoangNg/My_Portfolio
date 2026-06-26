@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nguyen Huy Hoang | AI Engineer Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans for premium tech feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            900: '#14532d',
+                            950: '#052e16',
+                        },
+                        darkBg: '#09090b',
+                        cardBg: '#18181b',
+                        borderBg: '#27272a'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #09090b;
+            color: #f4f4f5;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09090b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f3f46;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-brand-500/30 selection:text-brand-100">
+
+    <!-- Toast Notification (Không dùng Alert) -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-zinc-900 border border-zinc-800 text-zinc-100 px-4 py-3 rounded-lg shadow-xl flex items-center gap-3">
+        <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+        <span id="toast-message" class="text-sm font-medium"></span>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- HEADER / HERO SECTION -->
+        <header class="relative border-b border-zinc-800/80 pb-12 mb-12">
+            <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
+                
+                <!-- Left: Profile Text Info -->
+                <div class="flex-1 space-y-4 text-center md:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-950 border border-brand-900 text-brand-500 text-xs font-semibold uppercase tracking-wider">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brand-500"></span> Available for AI Engineering Roles
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
+                        NGUYEN HUY HOANG
+                    </h1>
+                    
+                    <p class="text-xl text-zinc-400 font-medium">
+                        AI Engineer & Generative AI Solutions Specialist
+                    </p>
+                    
+                    <p class="text-zinc-400 max-w-2xl leading-relaxed text-sm sm:text-base">
+                        Chuyên sâu về thiết kế và tối ưu hệ thống <strong>Retrieval-Augmented Generation (RAG)</strong>, 
+                        <strong>Multi-Agent System</strong> và các ứng dụng ngôn ngữ lớn (LLMs). Kinh nghiệm triển khai sản phẩm thực tế với quy trình đánh giá nghiêm ngặt, tối ưu hóa latency từ 9.6s xuống 3.4s và làm chủ các kỹ thuật xử lý dữ liệu nâng cao.
+                    </p>
+
+                    <!-- CV & Share Action Buttons -->
+                    <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-2">
+                        <a href="NGUYEN_HUY_HOANG_CV_AI_Engineer.pdf" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold rounded-lg transition-colors shadow-lg shadow-brand-900/20">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            Xem CV Bản Cứng (PDF)
+                        </a>
+                        <button onclick="sharePortfolio()" class="inline-flex items-center gap-2 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-bold rounded-lg transition-colors border border-zinc-700">
+                            <svg class="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 10.742l4.137-2.068a2 2 0 11.233 1.309L8.917 12.05l4.136 2.069a2 2 0 11-.233 1.309L8.684 13.26a2 2 0 110-2.517z"/></svg>
+                            Sao chép link Portfolio
+                        </button>
+                    </div>
+
+                    <!-- Contact details -->
+                    <div class="flex flex-wrap items-center justify-center md:justify-start gap-y-2 gap-x-6 text-sm text-zinc-400 pt-2">
+                        <a href="mailto:nguyenhuyhoang7040@gmail.com" class="flex items-center gap-2 hover:text-white transition-colors">
+                            <svg class="w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            nguyenhuyhoang7040@gmail.com
+                        </a>
+                        <span class="hidden sm:inline text-zinc-700">|</span>
+                        <a href="tel:0963134322" class="flex items-center gap-2 hover:text-white transition-colors">
+                            <svg class="w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                            0963 134 322
+                        </a>
+                        <span class="hidden sm:inline text-zinc-700">|</span>
+                        <a href="https://linkedin.com/in/hoang-nguyen-huy-227245308/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-white transition-colors">
+                            <svg class="w-4 h-4 text-zinc-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            LinkedIn
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Interactive Avatar Uploader (Không cần backend) -->
+                <div class="flex flex-col items-center gap-3">
+                    <div class="relative group cursor-pointer w-32 h-32 rounded-full border-2 border-dashed border-zinc-700 hover:border-brand-500 transition-all duration-300 bg-zinc-900/50 flex flex-col items-center justify-center text-center p-2 overflow-hidden" id="avatar-container">
+                        <!-- Default placeholder -->
+                        <div id="avatar-placeholder" class="flex flex-col items-center justify-center">
+                            <svg class="w-8 h-8 text-zinc-500 group-hover:text-brand-500 transition-colors mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                            <span class="text-[10px] text-zinc-500 font-medium group-hover:text-zinc-300">Tải ảnh lên</span>
+                        </div>
+                        <!-- Local Image render -->
+                        <img id="avatar-img" class="hidden w-full h-full object-cover rounded-full" alt="Nguyen Huy Hoang">
+                        <!-- Input element hidden -->
+                        <input type="file" id="avatar-input" class="hidden" accept="image/*">
+                        
+                        <!-- Hover mask to change image -->
+                        <div id="avatar-hover-mask" class="absolute inset-0 bg-black/60 items-center justify-center text-[10px] text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 hidden">
+                            Thay đổi ảnh
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-zinc-500 italic">Nhấp vào khung để cập nhật ảnh CV</p>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- OBJECTIVES CARD -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <div class="bg-zinc-900/60 border border-zinc-800/80 p-6 rounded-xl hover:border-zinc-700/80 transition-all">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="p-2 rounded-lg bg-brand-950 text-brand-500">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </span>
+                    <h2 class="text-lg font-bold text-white uppercase tracking-wider">Mục tiêu ngắn hạn (1-3 năm)</h2>
+                </div>
+                <ul class="space-y-2 text-sm text-zinc-400">
+                    <li class="flex items-start gap-2">
+                        <span class="text-brand-500 mt-1">✓</span>
+                        Phát triển và tích hợp các mô hình LLM (Claude, GPT, Gemini) vào các hệ thống Production chất lượng cao, ưu tiên tối ưu hóa pipeline RAG và Semantic Search.
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-brand-500 mt-1">✓</span>
+                        Master hóa các framework đo lường chất lượng, tối ưu độ trễ (latency) và chi phí vận hành cho các bài toán truy vấn tài liệu thực tế.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-zinc-900/60 border border-zinc-800/80 p-6 rounded-xl hover:border-zinc-700/80 transition-all">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="p-2 rounded-lg bg-brand-950 text-brand-500">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2h-2a2 2 0 00-2 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    </span>
+                    <h2 class="text-lg font-bold text-white uppercase tracking-wider">Mục tiêu dài hạn (3-5 năm)</h2>
+                </div>
+                <ul class="space-y-2 text-sm text-zinc-400">
+                    <li class="flex items-start gap-2">
+                        <span class="text-brand-500 mt-1">✓</span>
+                        Trở thành Senior AI Engineer chuyên sâu về kiến trúc Generative AI có khả năng scale tốt, xây dựng các hệ thống Multi-Modal và tự động hóa AI-driven phức tạp.
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-brand-500 mt-1">✓</span>
+                        Áp dụng nhuần nhuyễn MLOps thực chiến để đảm bảo tính ổn định tối đa của mô hình và tạo giá trị kinh doanh đo lường được cho doanh nghiệp.
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
+        <section class="mb-12">
+            <h3 class="text-xl font-bold text-white mb-6 uppercase tracking-wider flex items-center gap-2">
+                <span class="w-1.5 h-6 bg-brand-500 rounded-sm"></span> Kỹ năng kỹ thuật chuyên ngành
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                <!-- GenAI / LLM -->
+                <div class="p-5 rounded-xl border border-zinc-800 bg-zinc-900/30">
+                    <h4 class="text-brand-500 font-bold text-sm uppercase tracking-wider mb-3">Generative AI & LLM</h4>
+                    <ul class="space-y-2 text-xs text-zinc-400">
+                        <li>• Prompt Engineering & Tool Use</li>
+                        <li>• RAG Architectures & Vector Search</li>
+                        <li>• AI Agents & Multi-Agent (LangGraph)</li>
+                        <li>• MCP (Model Context Protocol)</li>
+                        <li>• Embeddings (Voyage, OpenAI, Cohere)</li>
+                    </ul>
+                </div>
+
+                <!-- Deep Learning & NLP -->
+                <div class="p-5 rounded-xl border border-zinc-800 bg-zinc-900/30">
+                    <h4 class="text-brand-500 font-bold text-sm uppercase tracking-wider mb-3">Deep Learning & NLP</h4>
+                    <ul class="space-y-2 text-xs text-zinc-400">
+                        <li>• HTR (Handwritten Text Recognition)</li>
+                        <li>• Computer Vision (PyTorch, OpenCV)</li>
+                        <li>• Supervised / Unsupervised Learning</li>
+                        <li>• Text Classification & Clustering</li>
+                        <li>• Fine-tuning & Transfer Learning</li>
+                    </ul>
+                </div>
+
+                <!-- MLOps & Frameworks -->
+                <div class="p-5 rounded-xl border border-zinc-800 bg-zinc-900/30">
+                    <h4 class="text-brand-500 font-bold text-sm uppercase tracking-wider mb-3">Tooling & Infrastructure</h4>
+                    <ul class="space-y-2 text-xs text-zinc-400">
+                        <li>• PyTorch, HuggingFace, FastAPI</li>
+                        <li>• LangChain, LangGraph</li>
+                        <li>• Docker, GitHub Actions (CI/CD)</li>
+                        <li>• Qdrant, FAISS Vector Databases</li>
+                        <li>• Microsoft Copilot Studio & Power Automate</li>
+                    </ul>
+                </div>
+
+                <!-- Languages & Cloud -->
+                <div class="p-5 rounded-xl border border-zinc-800 bg-zinc-900/30">
+                    <h4 class="text-brand-500 font-bold text-sm uppercase tracking-wider mb-3">Languages & Platforms</h4>
+                    <ul class="space-y-2 text-xs text-zinc-400">
+                        <li>• Python, SQL, C++</li>
+                        <li>• Voyage AI Cloud, Azure OpenAI</li>
+                        <li>• Azure AI Search, SharePoint API</li>
+                        <li>• NumPy, Pandas, Scikit-learn</li>
+                        <li>• Google Colab, Apple Silicon MPS</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- DYNAMIC PROJECTS SECTION -->
+        <section class="mb-12">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+                <h3 class="text-xl font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                    <span class="w-1.5 h-6 bg-brand-500 rounded-sm"></span> Dự án tiêu biểu thực tế
+                </h3>
+                
+                <!-- Category Tab Selector -->
+                <div class="flex bg-zinc-900 border border-zinc-800 rounded-lg p-1 text-xs">
+                    <button onclick="filterProjects('all')" id="btn-all" class="px-3 py-1.5 rounded-md font-semibold bg-brand-600 text-white transition-all">Tất cả</button>
+                    <button onclick="filterProjects('genai')" id="btn-genai" class="px-3 py-1.5 rounded-md font-semibold text-zinc-400 hover:text-white transition-all">GenAI & Agents</button>
+                    <button onclick="filterProjects('cvml')" id="btn-cvml" class="px-3 py-1.5 rounded-md font-semibold text-zinc-400 hover:text-white transition-all">CV & Machine Learning</button>
+                </div>
+            </div>
+
+            <!-- List of Projects -->
+            <div class="space-y-8">
+                
+                <!-- PROJECT 1: Trung tâm tri thức (RAG) -->
+                <div class="project-card border border-zinc-800 bg-zinc-900/40 rounded-xl overflow-hidden transition-all duration-300" data-cat="genai">
+                    <div class="p-6 sm:p-8 space-y-4">
+                        <div class="flex flex-wrap items-center justify-between gap-4">
+                            <div class="space-y-1">
+                                <span class="text-xs font-bold text-brand-500 uppercase tracking-widest">Enterprise Production Project</span>
+                                <h4 class="text-xl sm:text-2xl font-extrabold text-white">Trung Tâm Tri Thức — RAG Enterprise Platform</h4>
+                            </div>
+                            <span class="px-3 py-1 bg-zinc-800 border border-zinc-700 text-zinc-300 text-xs rounded-full">02/2026 - 04/2026</span>
+                        </div>
+
+                        <p class="text-zinc-400 text-sm sm:text-base leading-relaxed">
+                            Hệ thống hỏi đáp doanh nghiệp RAG quy mô lớn, hỗ trợ hấp thụ thông tin đa định dạng (PDF, DOCX, XLSX, TXT, MD) và video (MP4, YouTube, Playlist) với cơ chế sinh metadata tự động bằng AI, trích dẫn chuẩn xác nguồn thông tin và gợi ý câu hỏi tiếp theo thông minh.
+                        </p>
+
+                        <!-- Tech Stack Tags -->
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">FastAPI</span>
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">LangChain</span>
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">Claude Sonnet 4</span>
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">Voyage-3 Embedding</span>
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">Qdrant Cloud</span>
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">Docling</span>
+                        </div>
+
+                        <!-- Core implementation highlights -->
+                        <div class="border-t border-zinc-800/80 pt-4 mt-2">
+                            <h5 class="text-xs font-bold text-zinc-300 uppercase tracking-wider mb-2">Điểm sáng kỹ thuật (Technical Highlights):</h5>
+                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4 text-xs text-zinc-400">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-brand-500">▶</span>
+                                    <span><strong>Pipeline phân tách PDF 3 tầng (3-tier):</strong> Docling (Local) → Claude Vision (Fallback) → pdfplumber (Last resort) tự động detect bảng và sinh mô tả bảng qua LLM.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-brand-500">▶</span>
+                                    <span><strong>Chunking thông minh:</strong> Cơ chế heading-aware chunking (tối đa 700 tokens, overlap 80) giữ nguyên tính toàn vẹn cấu trúc văn bản.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-brand-500">▶</span>
+                                    <span><strong>Cơ chế bộ nhớ 3 tầng (Hybrid 3-layer Memory):</strong> Kết hợp Sliding Window (3 lượt gần nhất) + Rolling Summary (bởi Claude Haiku) + Vector Recall xuyên suốt phiên bằng Qdrant.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-brand-500">▶</span>
+                                    <span><strong>Bảo vệ chống nhiễu 4 lớp (Anti-Bloat Guards):</strong> Lọc hội thoại xã giao, lọc trùng lặp hash MD5, và lọc trùng ngữ nghĩa (Cosine Threshold &gt; 0.92) giúp <strong>chặn 60-80% hội thoại rác</strong> mà không tốn thêm tài nguyên LLM.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- GitHub Project Link -->
+                        <div class="pt-2 flex justify-start">
+                            <a href="https://github.com/huyhung9630/trungtamtrithuc" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-semibold text-brand-500 hover:text-brand-600 transition-colors">
+                                Xem mã nguồn dự án trên GitHub
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 2: Dental Marketing (Multi-Agent) -->
+                <div class="project-card border border-zinc-800 bg-zinc-900/40 rounded-xl overflow-hidden transition-all duration-300" data-cat="genai">
+                    <div class="p-6 sm:p-8 space-y-4">
+                        <div class="flex flex-wrap items-center justify-between gap-4">
+                            <div class="space-y-1">
+                                <span class="text-xs font-bold text-brand-500 uppercase tracking-widest">Multi-Agent System & Marketing Automation</span>
+                                <h4 class="text-xl sm:text-2xl font-extrabold text-white">SmileUp Dental — Multi-Agent Marketing Platform</h4>
+                            </div>
+                            <span class="px-3 py-1 bg-zinc-800 border border-zinc-700 text-zinc-300 text-xs rounded-full">04/2025 - 06/2025</span>
+                        </div>
+
+                        <p class="text-zinc-400 text-sm sm:text-base leading-relaxed">
+                            Hệ thống tự động hóa marketing nha khoa thông qua cấu trúc đa tác nhân (Multi-Agent). CMO Agent đóng vai trò người điều phối, chấm điểm duyệt và quyết định xuất bản nội dung an toàn y tế và tối ưu chuyển đổi đặt lịch.
+                        </p>
+
+                        <!-- Tech Stack Tags -->
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">LangGraph</span>
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">OpenAI API</span>
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">Claude Sonnet</span>
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">Gemini Pro</span>
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">Facebook Graph API</span>
+                        </div>
+
+                        <!-- Core implementation highlights -->
+                        <div class="border-t border-zinc-800/80 pt-4 mt-2">
+                            <h5 class="text-xs font-bold text-zinc-300 uppercase tracking-wider mb-2">Điểm sáng kỹ thuật (Technical Highlights):</h5>
+                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4 text-xs text-zinc-400">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-brand-500">▶</span>
+                                    <span><strong>Hệ thống CMO Jury:</strong> Chấm điểm tự động trên scorecard 100 điểm đa tiêu chí (Business Fit, Lead Intent, Compliance...). Cần tối thiểu &ge;85 điểm và vượt qua Compliance Gate mới được phép duyệt xuất bản.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-brand-500">▶</span>
+                                    <span><strong>An toàn y học và kiểm định nghiêm ngặt:</strong> Agent Compliance tự động phát hiện và ngăn chặn các khẳng định y khoa tuyệt đối, body-shaming, tự ý chỉ định điều trị, đảm bảo có đầy đủ disclaimer cần thiết.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-brand-500">▶</span>
+                                    <span><strong>Meta Ad Library Live Crawler:</strong> Thu thập thời gian thực từ Facebook Ad Library theo tỷ lệ 80% (từ các đối thủ cấu hình sẵn) và 20% (theo keywords ngành nha khoa) làm tư liệu phân tích chiến lược.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-brand-500">▶</span>
+                                    <span><strong>Xuất bản đa kênh tự động:</strong> Triển khai quy trình publish lên Facebook Page an toàn thông qua Token Signing nội bộ, tích hợp watermark ảnh ở client side trực tiếp từ trình duyệt trước khi đẩy payload lên Graph API.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- GitHub Project Link -->
+                        <div class="pt-2 flex justify-start">
+                            <a href="https://github.com/datng1/Multi-Agents-SmileUp" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-semibold text-brand-500 hover:text-brand-600 transition-colors">
+                                Xem mã nguồn dự án trên GitHub
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 3: Handwritten Text Recognition (HTR) -->
+                <div class="project-card border border-zinc-800 bg-zinc-900/40 rounded-xl overflow-hidden transition-all duration-300" data-cat="cvml">
+                    <div class="p-6 sm:p-8 space-y-4">
+                        <div class="flex flex-wrap items-center justify-between gap-4">
+                            <div class="space-y-1">
+                                <span class="text-xs font-bold text-brand-500 uppercase tracking-widest">Deep Learning & Computer Vision Research</span>
+                                <h4 class="text-xl sm:text-2xl font-extrabold text-white">Vietnamese Handwritten Text Recognition & Correction</h4>
+                            </div>
+                            <span class="px-3 py-1 bg-zinc-800 border border-zinc-700 text-zinc-300 text-xs rounded-full">11/2025 - 02/2026</span>
+                        </div>
+
+                        <p class="text-zinc-400 text-sm sm:text-base leading-relaxed">
+                            Nghiên cứu và phát triển pipeline nhận dạng chữ viết tay tiếng Việt (HTR) hoàn chỉnh. Kết hợp phân đoạn dòng văn bản và xử lý sửa lỗi chính tả tự động trên đầu ra OCR bị nhiễu.
+                        </p>
+
+                        <!-- Tech Stack Tags -->
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">PyTorch</span>
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">CRNN + CTC Loss</span>
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">N-gram Language Model</span>
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">OpenCV</span>
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">Apple Silicon MPS</span>
+                        </div>
+
+                        <!-- Core implementation highlights -->
+                        <div class="border-t border-zinc-800/80 pt-4 mt-2">
+                            <h5 class="text-xs font-bold text-zinc-300 uppercase tracking-wider mb-2">Điểm sáng kỹ thuật (Technical Highlights):</h5>
+                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4 text-xs text-zinc-400">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-brand-500">▶</span>
+                                    <span><strong>Tối ưu hóa mô hình nhận dạng:</strong> Cải tiến và tối ưu hóa kiến trúc CRNN + CTC (~9.3M params) trên bộ dữ liệu 15,354 dòng chữ viết tay Việt Nam. Kiểm soát chặt chẽ hiện tượng overfitting (val-test gap chỉ ~2.4 pp CER).</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-brand-500">▶</span>
+                                    <span><strong>Hậu xử lý tự động (Spell Correction):</strong> Áp dụng thuật toán n-gram language models và edit-distance để định hình và giảm lỗi từ vựng (Word Error Rate - WER) đối với các vùng OCR nhiễu.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-brand-500">▶</span>
+                                    <span><strong>Phân đoạn đoạn văn (Paragraph Segmentation):</strong> Tích hợp phương pháp phân dòng ngang (horizontal projection profile) giúp tự động bóc tách từng dòng chữ riêng lẻ với hiệu suất cực nhanh (~30ms/dòng trên Apple Silicon MPS).</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-brand-500">▶</span>
+                                    <span><strong>Pipeline tăng cường dữ liệu (Augmentation Pipeline):</strong> Thiết kế hệ thống sinh sinh dữ liệu ngẫu nhiên (affine, perspective, noise, morphology) từ bộ dataset gốc viết tay UIT_HWDB để mở rộng mẫu huấn luyện.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 4: Research Paper Clustering -->
+                <div class="project-card border border-zinc-800 bg-zinc-900/40 rounded-xl overflow-hidden transition-all duration-300" data-cat="cvml">
+                    <div class="p-6 sm:p-8 space-y-4">
+                        <div class="flex flex-wrap items-center justify-between gap-4">
+                            <div class="space-y-1">
+                                <span class="text-xs font-bold text-brand-500 uppercase tracking-widest">Faculty Scientific Research — 2nd Prize</span>
+                                <h4 class="text-xl sm:text-2xl font-extrabold text-white">Research Paper Clustering System for Academic Conferences</h4>
+                            </div>
+                            <span class="px-3 py-1 bg-zinc-800 border border-zinc-700 text-zinc-300 text-xs rounded-full">09/2024 - 12/2024</span>
+                        </div>
+
+                        <p class="text-zinc-400 text-sm sm:text-base leading-relaxed">
+                            Ứng dụng học máy không giám sát để tự động phân cụm hàng trăm bài nghiên cứu học thuật phục vụ cho hội nghị khoa học, giúp tự động phân loại chủ đề bài báo và phân bổ phản biện chính xác.
+                        </p>
+
+                        <!-- Tech Stack Tags -->
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">Python</span>
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">K-Means Clustering</span>
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">TF-IDF Vectorizer</span>
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">Scikit-learn</span>
+                            <span class="px-2.5 py-0.5 bg-zinc-800 text-zinc-300 text-xs font-medium rounded">NLP Preprocessing</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- INTERACTIVE ARCHITECTURE VISUALIZER (WOW FACTOR FOR RECRUITERS) -->
+        <section class="mb-12 bg-zinc-900/40 border border-brand-900/40 rounded-xl p-6 sm:p-8">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h3 class="text-lg font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                        💡 Trực quan hóa kiến trúc hệ thống
+                    </h3>
+                    <p class="text-xs text-zinc-400">Chọn dự án để xem luồng dữ liệu kiến trúc do tôi thiết lập</p>
+                </div>
+                
+                <!-- Toggle Architectures -->
+                <div class="flex bg-zinc-950 border border-zinc-800 rounded-lg p-1 text-xs">
+                    <button onclick="switchArch('rag')" id="arch-btn-rag" class="px-3 py-1.5 rounded-md font-semibold bg-brand-600 text-white transition-all">Trung Tâm Tri Thức (RAG)</button>
+                    <button onclick="switchArch('agent')" id="arch-btn-agent" class="px-3 py-1.5 rounded-md font-semibold text-zinc-400 hover:text-white transition-all">SmileUp (Multi-Agent)</button>
+                </div>
+            </div>
+
+            <!-- Architecture Container RAG -->
+            <div id="arch-rag" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-3 text-center text-xs font-bold">
+                    <div class="p-3 bg-zinc-950 border border-zinc-800 rounded-lg flex flex-col justify-center items-center">
+                        <span class="text-brand-500 mb-1">01. INGESTION</span>
+                        <p class="text-[10px] text-zinc-400 font-normal">PDF Parser (Docling) / Video (Whisper) / YouTube API</p>
+                    </div>
+                    <div class="flex items-center justify-center text-zinc-600 font-normal">──▶</div>
+                    <div class="p-3 bg-zinc-950 border border-zinc-800 rounded-lg flex flex-col justify-center items-center">
+                        <span class="text-brand-500 mb-1">02. CHUNKING & EMBED</span>
+                        <p class="text-[10px] text-zinc-400 font-normal">Heading-Aware (700 tok) + Voyage-3 Embedding (1024-dim)</p>
+                    </div>
+                    <div class="flex items-center justify-center text-zinc-600 font-normal">──▶</div>
+                    <div class="p-3 bg-zinc-950 border border-zinc-800 rounded-lg flex flex-col justify-center items-center">
+                        <span class="text-brand-500 mb-1">03. VECTOR DB (QDRANT)</span>
+                        <p class="text-[10px] text-zinc-400 font-normal">Upsert & Parallel Search / Cross-Encoder Rerank</p>
+                    </div>
+                </div>
+                <div class="p-4 bg-zinc-950/60 border border-zinc-800/60 rounded-lg text-xs text-zinc-400 leading-relaxed">
+                    <span class="text-brand-500 font-semibold uppercase tracking-wider block mb-1 text-[11px]">Luồng xử lý tối ưu thông tin:</span>
+                    Dữ liệu sau khi nạp qua pipeline 3 tầng sẽ được chunking và chuyển hóa thành Vector thông qua <strong>Voyage AI</strong> và lưu trữ vào <strong>Qdrant Cloud</strong>. Khi người dùng đặt câu hỏi, bộ nhớ hỗn hợp 3 tầng (Sliding Window + Summary + Vector Memory) sẽ truy hồi thông tin song song để build hệ thống Context Tags chặt chẽ cho Claude Sonnet 4 tổng hợp câu trả lời chính xác, chặn hoàn toàn ảo giác (Hallucination).
+                </div>
+            </div>
+
+            <!-- Architecture Container AGENT -->
+            <div id="arch-agent" class="space-y-4 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-3 text-center text-xs font-bold">
+                    <div class="p-3 bg-zinc-950 border border-zinc-800 rounded-lg flex flex-col justify-center items-center">
+                        <span class="text-brand-500 mb-1">01. CRAWLER & TRANSLATE</span>
+                        <p class="text-[10px] text-zinc-400 font-normal">Meta Ad Library Crawling / Đối thủ cạnh tranh (80/20)</p>
+                    </div>
+                    <div class="flex items-center justify-center text-zinc-600 font-normal">──▶</div>
+                    <div class="p-3 bg-zinc-950 border border-zinc-800 rounded-lg flex flex-col justify-center items-center">
+                        <span class="text-brand-500 mb-1">02. CONTENT CREATOR</span>
+                        <p class="text-[10px] text-zinc-400 font-normal">2 Tuyến bài: ads_effective (chuyển đổi) & page_care (nuôi dưỡng)</p>
+                    </div>
+                    <div class="flex items-center justify-center text-zinc-600 font-normal">──▶</div>
+                    <div class="p-3 bg-zinc-950 border border-zinc-800 rounded-lg flex flex-col justify-center items-center">
+                        <span class="text-brand-500 mb-1">03. CMO JURY GATE</span>
+                        <p class="text-[10px] text-zinc-400 font-normal">Scorecard &gt;85 & Đạt Compliance Gate → Đăng bài (Graph API)</p>
+                    </div>
+                </div>
+                <div class="p-4 bg-zinc-950/60 border border-zinc-800/60 rounded-lg text-xs text-zinc-400 leading-relaxed">
+                    <span class="text-brand-500 font-semibold uppercase tracking-wider block mb-1 text-[11px]">Cơ chế Multi-Agent phối hợp:</span>
+                    Hệ thống chạy trên nền tảng LangGraph phối hợp nhịp nhàng các tác nhân chuyên biệt. <strong>CMO Agent</strong> đóng vai trò chấm điểm chốt quyết định cuối cùng thông qua cơ chế biểu quyết đa mô hình (Consensus vote) của 3 LLM (GPT, Gemini, Claude). Nếu bất kỳ tiêu chí Compliance nào vi phạm điều khoản y tế, quy trình sẽ ngay lập tức bị block yêu cầu sửa đổi (Revise required).
+                </div>
+            </div>
+        </section>
+
+        <!-- WORK EXPERIENCES -->
+        <section class="mb-12">
+            <h3 class="text-xl font-bold text-white mb-6 uppercase tracking-wider flex items-center gap-2">
+                <span class="w-1.5 h-6 bg-brand-500 rounded-sm"></span> Kinh nghiệm làm việc
+            </h3>
+            
+            <div class="space-y-8 relative border-l border-zinc-800 pl-6 ml-3">
+                
+                <!-- Job 1 -->
+                <div class="relative group">
+                    <!-- Timeline Dot -->
+                    <span class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-zinc-950 border-2 border-brand-500 group-hover:scale-125 transition-transform"></span>
+                    
+                    <div class="space-y-2">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <h4 class="text-lg font-bold text-white">Fresher AI Engineer</h4>
+                            <span class="text-xs font-semibold text-zinc-500">02/2026 - 05/2026</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs font-medium text-brand-500">
+                            <span>TDI Group</span>
+                            <span class="text-zinc-600">•</span>
+                            <span>Hà Nội, Việt Nam</span>
+                        </div>
+                        
+                        <p class="text-zinc-400 text-xs sm:text-sm leading-relaxed">
+                            Nghiên cứu và triển khai dự án <strong>Customer Search & Support Chatbot</strong> phục vụ chuyển đổi số doanh nghiệp sử dụng kiến trúc RAG, Power Automate kết nối SharePoint, và Copilot Studio.
+                        </p>
+                        
+                        <ul class="list-disc pl-4 space-y-1 text-xs text-zinc-500">
+                            <li>Thiết lập chatbot thông minh đạt độ chính xác trên <strong>90% cho 100+ câu hỏi thực tế</strong> thuộc 5 nhóm sản phẩm nhờ kiểm thử và tối ưu prompt liên tục.</li>
+                            <li>Tích hợp <strong>Model Context Protocol (MCP)</strong> kết nối 3+ nguồn dữ liệu nội bộ; áp dụng xử lý song song và cache phản hồi giúp <strong>giảm latency từ 9.6 giây xuống còn 3.4 giây</strong>.</li>
+                            <li>Xây dựng pipeline vector search dựa trên dense embeddings và thư viện FAISS; loại trừ nguy cơ ảo giác thông qua kỹ thuật prompt 3 lớp.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Job 2 -->
+                <div class="relative group">
+                    <!-- Timeline Dot -->
+                    <span class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-zinc-950 border-2 border-zinc-700 group-hover:border-brand-500 group-hover:scale-125 transition-transform"></span>
+                    
+                    <div class="space-y-2">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <h4 class="text-lg font-bold text-white">Research Intern</h4>
+                            <span class="text-xs font-semibold text-zinc-500">11/2025 - 02/2026</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs font-medium text-zinc-400">
+                            <span>Viện Nghiên cứu Điện tử, Tin học, Tự động hóa (VIELINA)</span>
+                            <span class="text-zinc-600">•</span>
+                            <span>Hà Nội, Việt Nam</span>
+                        </div>
+                        
+                        <p class="text-zinc-400 text-xs sm:text-sm leading-relaxed">
+                            Tham gia nhóm nghiên cứu dự án <strong>Hệ thống nhận dạng chữ viết tay tiếng Việt và Sửa lỗi chính tả tự động</strong>.
+                        </p>
+                        
+                        <ul class="list-disc pl-4 space-y-1 text-xs text-zinc-500">
+                            <li>Cải thiện độ chính xác hệ thống nhận dạng dạng dòng (HTR) dùng PyTorch CRNN+CTC, đạt kết quả ấn tượng 8.78% CER / 25.82% WER trên tập dữ liệu kiểm thử độc lập.</li>
+                            <li>Xây dựng module tiền xử lý dữ liệu và cấu trúc pipeline augmentation, phục vụ xuất báo cáo khoa học của Viện.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- EDUCATION & AWARDS -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            
+            <!-- Education -->
+            <div class="bg-zinc-900/20 border border-zinc-800 p-6 rounded-xl">
+                <h3 class="text-base font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+                    🎓 Giáo dục & Đào tạo
+                </h3>
+                <div class="space-y-4">
+                    <div class="space-y-1">
+                        <div class="flex justify-between items-start">
+                            <h4 class="text-sm font-bold text-zinc-200">Ngành Khoa học dữ liệu và Trí tuệ nhân tạo</h4>
+                            <span class="text-[11px] text-zinc-500 font-medium">2022 - 2026</span>
+                        </div>
+                        <p class="text-xs text-zinc-400">Trường Đại học Thủy Lợi (Thuyloi University)</p>
+                        <div class="flex items-center gap-3 pt-1">
+                            <span class="text-xs font-semibold text-brand-500 bg-brand-950 px-2 py-0.5 rounded border border-brand-900/60">GPA: 3.49 / 4.0</span>
+                            <span class="text-[11px] text-zinc-400">Học bổng Khuyến khích Học tập xuất sắc</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Awards -->
+            <div class="bg-zinc-900/20 border border-zinc-800 p-6 rounded-xl">
+                <h3 class="text-base font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+                    🏆 Giải thưởng & Nghiên cứu
+                </h3>
+                <ul class="space-y-3 text-xs text-zinc-400">
+                    <li class="flex items-start gap-2.5">
+                        <span class="text-brand-500">★</span>
+                        <div>
+                            <strong class="text-zinc-200">Giải Nhì - Nghiên cứu Khoa học cấp Khoa (2024-2025)</strong>
+                            <p class="text-zinc-500 text-[11px]">Đề tài: "Clustering Researchers Using K-Means Pipeline & TF-IDF Embeddings"</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-2.5">
+                        <span class="text-brand-500">★</span>
+                        <div>
+                            <strong class="text-zinc-200">Top 10 Chung cuộc - Young Innovator Challenge</strong>
+                            <p class="text-zinc-500 text-[11px]">Tổ chức bởi Đại học Bách Khoa Hà Nội (HUST)</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </section>
+
+        <!-- FOOTER & INTERACTIVE CONTACT -->
+        <footer class="border-t border-zinc-800/80 pt-12 text-center space-y-6">
+            <div class="max-w-md mx-auto space-y-3">
+                <h4 class="text-lg font-bold text-white">Kết nối & Hợp tác làm việc</h4>
+                <p class="text-xs text-zinc-400 leading-relaxed">
+                    Tôi luôn sẵn sàng thảo luận về các cơ hội làm việc Full-time, dự án phát triển hệ thống RAG / Agents doanh nghiệp đầy thách thức.
+                </p>
+                
+                <!-- Quick Contact Action Buttons -->
+                <div class="flex justify-center gap-3 pt-2">
+                    <a href="mailto:nguyenhuyhoang7040@gmail.com" class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold rounded-lg transition-colors shadow-lg shadow-brand-900/20">
+                        Gửi Email trực tiếp
+                    </a>
+                    <button onclick="copyEmail()" class="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-bold rounded-lg transition-colors border border-zinc-700">
+                        Sao chép Email
+                    </button>
+                </div>
+            </div>
+
+            <div class="text-[11px] text-zinc-600 pt-8">
+                &copy; 2026 Nguyen Huy Hoang. Portfolio kỹ thuật xây dựng và tối ưu thủ công.
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Portfolio Logic (Pure Vanilla Javascript) -->
+    <script>
+        // Interactive Avatar Upload Logic
+        const avatarContainer = document.getElementById('avatar-container');
+        const avatarPlaceholder = document.getElementById('avatar-placeholder');
+        const avatarImg = document.getElementById('avatar-img');
+        const avatarInput = document.getElementById('avatar-input');
+        const avatarHoverMask = document.getElementById('avatar-hover-mask');
+
+        avatarContainer.addEventListener('click', () => {
+            avatarInput.click();
+        });
+
+        avatarInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarImg.src = e.target.result;
+                    avatarImg.classList.remove('hidden');
+                    avatarPlaceholder.classList.add('hidden');
+                    avatarHoverMask.classList.add('flex');
+                    avatarHoverMask.classList.remove('hidden');
+                    showToast("Cập nhật ảnh đại diện thành công!");
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Interactive Toast Message
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            
+            // Slide in
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            // Slide out after 3.5s
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // Copy Email to Clipboard (An toàn bảo mật)
+        function copyEmail() {
+            const emailText = "nguyenhuyhoang7040@gmail.com";
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = emailText;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+            showToast("Đã sao chép địa chỉ Email vào clipboard!");
+        }
+
+        // Tự động lấy link hiện tại để chia sẻ
+        function sharePortfolio() {
+            const currentUrl = window.location.href;
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = currentUrl;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+            showToast("Đã sao chép link Portfolio của bạn vào clipboard!");
+        }
+
+        // Filter Projects Category
+        function filterProjects(category) {
+            const cards = document.querySelectorAll('.project-card');
+            const btnAll = document.getElementById('btn-all');
+            const btnGenAI = document.getElementById('btn-genai');
+            const btnCVML = document.getElementById('btn-cvml');
+
+            // Reset buttons style
+            [btnAll, btnGenAI, btnCVML].forEach(btn => {
+                btn.classList.remove('bg-brand-600', 'text-white');
+                btn.classList.add('text-zinc-400', 'hover:text-white');
+            });
+
+            // Set active button style
+            const activeBtn = document.getElementById(`btn-${category}`);
+            activeBtn.classList.add('bg-brand-600', 'text-white');
+            activeBtn.classList.remove('text-zinc-400', 'hover:text-white');
+
+            // Show/Hide Cards
+            cards.forEach(card => {
+                const cardCat = card.getAttribute('data-cat');
+                if (category === 'all' || cardCat === category) {
+                    card.style.display = 'block';
+                    card.style.opacity = '0';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                    }, 50);
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Switch System Architecture Tabs
+        function switchArch(type) {
+            const archRag = document.getElementById('arch-rag');
+            const archAgent = document.getElementById('arch-agent');
+            const btnRag = document.getElementById('arch-btn-rag');
+            const btnAgent = document.getElementById('arch-btn-agent');
+
+            if (type === 'rag') {
+                archRag.classList.remove('hidden');
+                archAgent.classList.add('hidden');
+                btnRag.classList.add('bg-brand-600', 'text-white');
+                btnRag.classList.remove('text-zinc-400');
+                btnAgent.classList.remove('bg-brand-600', 'text-white');
+                btnAgent.classList.add('text-zinc-400');
+            } else {
+                archRag.classList.add('hidden');
+                archAgent.classList.remove('hidden');
+                btnAgent.classList.add('bg-brand-600', 'text-white');
+                btnAgent.classList.remove('text-zinc-400');
+                btnRag.classList.remove('bg-brand-600', 'text-white');
+                btnRag.classList.add('text-zinc-400');
+            }
+        }
+    </script>
+</body>
+</html>
